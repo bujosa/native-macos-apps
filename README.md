@@ -65,28 +65,28 @@ tuist version
 
 ## 4. Initialize the Project
 
+As of Tuist 4.x, `tuist init` no longer supports `--platform` or `--name` flags — it only accepts `--path` and requires an interactive terminal session. **Create the project structure manually:**
+
 ```bash
 mkdir MyLocalTool
 cd MyLocalTool
 
-# Initialize a project with Tuist
-tuist init --platform macos --name MyLocalTool
+# Create the directory structure manually
+mkdir -p MyLocalTool/Sources
+mkdir -p MyLocalTool/Resources
 ```
 
-This generates a structure like:
+Your project structure should look like:
 
 ```
 MyLocalTool/
-├── Project.swift          # Project manifest
+├── Project.swift               # Project manifest (create in Step 5)
+├── Makefile                    # Build automation (create in Step 8)
 ├── MyLocalTool/
-│   ├── Sources/           # Your Swift code
-│   └── Resources/         # Assets, etc.
-├── Tuist/
-│   └── Config.swift       # Tuist configuration
-└── Package.swift          # SPM dependencies (if any)
+│   ├── MyLocalTool.entitlements  # App entitlements (create in Step 5a)
+│   ├── Sources/                  # Your Swift code (create in Step 7)
+│   └── Resources/                # Assets, etc.
 ```
-
-> **Note:** If `tuist init` doesn't support `--platform macos` in your version, create the structure manually (see Step 6).
 
 ---
 
@@ -425,6 +425,7 @@ brew upgrade tuist
 | Issue in the original | Correction |
 |---|---|
 | `curl -Ls https://install.tuist.io \| bash` no longer works | Use `mise install tuist` or `brew install tuist` |
+| `tuist init --platform macos --name X` no longer works | Tuist 4.x removed `--platform`/`--name` flags; create project structure manually |
 | `"App-Sandbox": false` in infoPlist has no effect | Use `.entitlements` file with `entitlements: .file(path:)` in Tuist |
 | Synchronous `runCommand` freezes the UI | Use `Task.detached` + `MainActor.run` for async |
 | `find` in DerivedData is fragile | Local `-derivedDataPath` with predictable path |
