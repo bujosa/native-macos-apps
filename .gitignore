@@ -13,3 +13,6 @@ Derived/
 
 # Tuist cache
 Tuist/.build/
+
+# Executables output
+executables/
